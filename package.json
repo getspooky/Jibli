@@ -5,15 +5,19 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.7",
     "expo": "~36.0.0",
     "expo-linear-gradient": "^8.1.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-maps": "0.26.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
     "react-native-vector-icons": "^6.6.0",
@@ -23,7 +27,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "babel-preset-expo": "~8.0.0"
+    "babel-eslint": "^10.1.0",
+    "babel-preset-expo": "~8.0.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0"
   },
   "private": true
 }
