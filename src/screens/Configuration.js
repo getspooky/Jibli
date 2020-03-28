@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Translate } from '../config/i18n';
+import Database from '../config/firebaseInit';
 import {
   StyleSheet,
   Text,
@@ -11,20 +12,74 @@ import {
 } from 'react-native';
 
 export default function Role(props) {
+  /* @state  */
+  const [phone, setPhone] = useState({ number: null });
+
   /* @var */
   const { navigation } = props;
 
   /**
-   * @desc Redirect the current user to Trancking screen.
+   * @desc Runs after the component output has been rendered to the DOM.
+   */
+  useEffect(function() {
+    informationAlreadyAdded();
+  });
+
+  /**
+   * @internal
+   * @desc Check if the user information already added.
    * @function
-   * @name {redirectTo}
-   * @param {string} strategy
+   * @name {informationAlreadyAdded}
    * @returns {void}
    */
-  function redirectTo(strategy) {
-    if (navigation.state.params.hasOwnProperty('_id'))
-      navigation.navigate('Tracking', { strategy, ...navigation.state.params });
-    else navigation.navigate('Weclome', null);
+  function informationAlreadyAdded() {
+    Database.collection('information')
+      .where('_idUser', '==', navigation.getParam('_id'))
+      .limit(1)
+      .get()
+      .then(querySnapshot => {
+        if (querySnapshot.size === 1)
+          navigation.navigate('Role', {
+            ...navigation.state.params,
+          });
+        else new TypeError('Account does not exists');
+      });
+  }
+
+  /**
+   * @internal
+   * @desc Save WhatsApp phone number and redirect the user to tracking screen.
+   * @function
+   * @name {redirectTo}
+   * @returns {void}
+   */
+  function saveConfiguration() {
+    if (!navigation.state.params.hasOwnProperty('_id'))
+      navigation.navigate('Weclome', null);
+    if (phone !== null) {
+      Database.collection('information')
+        .add({
+          phone,
+          _idUser: navigation.getParam('_id'),
+        })
+        .then(docRef => {
+          navigation.navigate('Role', {
+            ...navigation.state.params,
+          });
+        });
+    }
+  }
+
+  /**
+   * @internal
+   * @desc Handle input change.
+   * @function
+   * @name {HandleInputChange}
+   * @param {Object} event
+   * @returns {void}
+   */
+  function HandleInputChange(event) {
+    setPhone({ number: event.target.value });
   }
 
   return (
@@ -43,10 +98,14 @@ export default function Role(props) {
           alignItems: 'stretch',
         }}
       >
-        <TextInput style={styles.textInput} placeholder={'(+212) 662134122'} />
+        <TextInput
+          style={styles.textInput}
+          onChange={HandleInputChange}
+          placeholder={'(+212) 662134122'}
+        />
         <TouchableOpacity
           style={styles.btnNext}
-          onPress={() => redirectTo('delivery')}
+          onPress={() => saveConfiguration()}
         >
           <Text
             style={{
