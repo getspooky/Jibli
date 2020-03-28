@@ -34,13 +34,14 @@ const { width } = Dimensions.get('screen');
 export default function Delivery(props) {
   const { item } = props;
   return (
-    <TouchableWithoutFeedback key={`parking-${item.id}`}>
+    <TouchableWithoutFeedback key={`parking-${item._id}`}>
       <View style={styles.delivery}>
         <View style={styles.details}>
           <Text style={styles.tranportTitle}>{item.transport}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ color: '#7D818A', fontSize: 12 }}>
-              Tel: {item.tel}
+              <Icon name="whatsapp" size={13} color="#7D818A" />
+              {' ' + item.tel}
             </Text>
           </View>
         </View>
@@ -53,9 +54,9 @@ export default function Delivery(props) {
               </Text>
             </View>
             <View style={styles.deliveryIcon}>
-              <Icon name="star" size={16} color={'#4a5568'} />
+              <Icon name="link" size={16} color={'#4a5568'} />
               <Text style={{ fontSize: 10, color: '#7D818A', marginTop: 3 }}>
-                {parseFloat(item.start / 1000).toFixed(1)}k
+                {parseFloat(item.link / 1000).toFixed(1)}k
               </Text>
             </View>
           </View>
@@ -64,11 +65,8 @@ export default function Delivery(props) {
               <Text style={{ color: 'white' }}>Price</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Icon name="dollar" size={16 * 1.25} color="white" />
-                <Text style={styles.buyTotalPrice}>{item.price}</Text>
+                <Text style={styles.buyTotalPrice}>{'FREE'}</Text>
               </View>
-            </View>
-            <View style={styles.buyBtn}>
-              <Icon name="whatsapp" size={16 * 1.75} color="white" />
             </View>
           </TouchableOpacity>
         </View>
