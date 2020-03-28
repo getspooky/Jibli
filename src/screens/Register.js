@@ -28,10 +28,10 @@ export default function Register(props) {
    * @internal
    * @desc Handle Sign In.
    * @function
-   * @name {HandleSignIn}
+   * @name {HandleSignUp}
    * @returns {void}
    */
-  function HandleSignIn() {
+  function HandleSignUp() {
     const { username, email, password, country } = data;
     firebase
       .auth()
@@ -116,7 +116,7 @@ export default function Register(props) {
         >
           {listOfCountries}
         </Picker>
-        <TouchableOpacity style={styles.btnNext} onPress={HandleSignIn}>
+        <TouchableOpacity style={styles.btnNext} onPress={HandleSignUp}>
           <Text
             style={{
               textAlign: 'center',
