@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import firebase from 'firebase';
 import { Auth as HandleSignIn } from '../authentication';
 import {
@@ -16,11 +16,12 @@ import {
   Text,
   View,
   Image,
-  Alert,
+  Linking,
   TouchableOpacity,
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { GitHubUrl } from '../data/links';
 const { width, height } = Dimensions.get('window');
 
 export default function Welcome(props) {
@@ -42,12 +43,10 @@ export default function Welcome(props) {
    * @returns {void}
    */
   function dataTransport() {
-    navigation.navigate('Role', {
+    navigation.navigate('Configuration', {
       _id: this.uid,
       name: this.displayName,
-      avatar: this.photoURL,
       email: this.email,
-      phoneNumber: this.phoneNumber,
     });
   }
 
@@ -60,34 +59,10 @@ export default function Welcome(props) {
    */
   function isAuthenticated() {
     firebase.auth().onAuthStateChanged(function(user) {
-      if (user) console.log(navigation);
-      // User is signed in.
-      dataTransport.call(user);
+      if (user)
+        // User is signed in.
+        dataTransport.call(user);
     });
-  }
-
-  /**
-   * @internal
-   * @desc Authenticate action.
-   * @function
-   * @name {SignIn}
-   * @param {string} strategy
-   * @returns {Component | void}
-   */
-  function SignIn(strategy) {
-    switch (strategy) {
-      case 'facebook':
-        HandleSignIn(new firebase.auth.FacebookAuthProvider()).then(user =>
-          dataTransport.call(user),
-        );
-      case 'twitter':
-        return HandleSignIn(
-          new firebase.auth.TwitterAuthProvider(),
-        ).then(() => {});
-      default:
-        console.error(`Please choose valid strategy`);
-        break;
-    }
   }
 
   return (
@@ -104,21 +79,21 @@ export default function Welcome(props) {
       />
       <TouchableOpacity
         style={[styles.CustomButton]}
-        onClick={() => SignIn('facebook')}
+        onPress={() => navigator.navigate('Login')}
       >
         <Text style={{ fontWeight: '500', fontSize: 15, color: '#3B5998' }}>
-          <Icon name="facebook" size={15} color="#3B5998" /> Login with Facebook
+          <Icon name="sign-in" size={15} color="#3B5998" /> Getting Started
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.CustomButton]}
-        onClick={() => SignIn('twitter')}
+        onPress={() => Linking.openURL(GitHubUrl || '')}
       >
-        <Text style={{ fontWeight: '500', fontSize: 15, color: '#55ACEE' }}>
-          <Icon name="twitter" size={15} color="#55ACEE" /> Login with Twitter
+        <Text style={{ fontWeight: '500', fontSize: 15, color: '#1a202c' }}>
+          <Icon name="github" size={15} color="#1a202c" /> Contribute on GitHub
         </Text>
       </TouchableOpacity>
-      <Text style={{ fontSize: 8, color: '#718096', marginTop: 9 }}>
+      <Text style={{ fontSize: 10, color: '#718096', marginTop: 9 }}>
         Terms Of Service
       </Text>
     </View>
@@ -149,7 +124,7 @@ const styles = StyleSheet.create({
     overflow: 'visible',
   },
   CustomButton: {
-    ...(Platform.OS === 'ios' || 'web'
+    ...(Platform.OS === 'ios'
       ? {
           shadowColor: '#323643',
           shadowOffset: { width: 0, height: 2 },
