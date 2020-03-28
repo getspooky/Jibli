@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -13,10 +13,39 @@ import Delivery from '../components/Delivery';
 import Database from '../config/firebaseInit';
 const { height, width } = Dimensions.get('screen');
 import data from '../data/fake.js';
+import mapStyle from '../data/mapStyle.js';
 
 export default function Tracking(props) {
+  /* @state */
+  const [location, setLocation] = useState(null);
+
   /* @var */
   const { navigation } = props;
+
+  /**
+   * @desc Runs after the component output has been rendered to the DOM.
+   */
+  useEffect(function() {
+    getAllLocations();
+  }, []);
+
+  /**
+   * @desc Get Users Locations
+   * @function
+   * @name {getAllLocations}
+   * @returns {void}
+   */
+  function getAllLocations() {
+    Database.collection('information')
+      .get()
+      .then(querySnapshot => {
+        if (querySnapshot)
+          querySnapshot.forEach(function(doc) {
+            // set current geolocation of the user.
+            setLocation([doc.data()]);
+          });
+      });
+  }
 
   /**
    * @desc Update Information collection
@@ -62,10 +91,21 @@ export default function Tracking(props) {
       <TouchableOpacity style={styles.localisation} onPress={initUserGeoLocal}>
         <Icon name="map-marker" size={20} color="#4a5568" />
       </TouchableOpacity>
-      {/*<MapView 
+
+      {/*<MapView
         region={currentPosition}
-        style={styles.map} 
-       />*/}
+        style={styles.map}
+        customMapStyle={mapStyle}
+      >
+        {this.state.markers.map(marker => (
+          <Marker
+            coordinate={marker.latlng}
+            title={marker.title}
+            description={marker.description}
+          />
+        ))}
+      </MapView>
+        */}
       <FlatList
         horizontal
         pagingEnabled
