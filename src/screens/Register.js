@@ -7,10 +7,12 @@ import {
   Picker,
   View,
   TouchableOpacity,
+  Dimensions,
   Platform,
 } from 'react-native';
 import { dataTransport } from './Welcome';
 import countries from '../data/countries';
+const { width } = Dimensions.get('window');
 
 export default function Register(props) {
   /* @state  */
@@ -54,14 +56,16 @@ export default function Register(props) {
    * @desc Handle input change.
    * @function
    * @name {HandleInputChange}
-   * @param {Object} event
-   * @returns {void}
+   * @param {String} name
+   * @returns {Function}
    */
-  function HandleInputChange(event) {
-    setData({
-      ...data,
-      [event.target.name]: event.target.value,
-    });
+  function HandleInputChange(name) {
+    return value => {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    };
   }
 
   const listOfCountries = countries.map(({ name, code }) => {
@@ -79,36 +83,34 @@ export default function Register(props) {
         style={{
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'stretch',
+          alignItems: 'center',
+          width: width * 0.7,
         }}
       >
         <TextInput
           style={styles.textInput}
-          onChange={HandleInputChange}
+          onChange={HandleInputChange('username')}
           name={'username'}
           type={'username'}
           placeholder={'Username'}
         />
         <TextInput
           style={styles.textInput}
-          onChange={HandleInputChange}
+          onChange={HandleInputChange('email')}
           name={'email'}
           type={'email'}
           placeholder={'Email Address'}
         />
         <TextInput
-          style={styles.textInput}
-          onChange={HandleInputChange}
+          style={[styles.textInput]}
+          onChange={HandleInputChange('password')}
           name={'password'}
           type={'password'}
           placeholder={'Password'}
           secureTextEntry={true}
         />
         <Picker
-          style={[
-            styles.textInput,
-            { backgroundColor: 'white', color: '#4a5568', border: 0 },
-          ]}
+          style={[styles.textInput]}
           selectedValue={'Morocco'}
           onValueChange={(itemValue, itemIndex) =>
             setData({ ...data, country: itemValue })
@@ -126,6 +128,21 @@ export default function Register(props) {
             }}
           >
             Sign Up
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.btnNext, { backgroundColor: '#fff' }]}
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 17,
+              fontWeight: '600',
+              color: '#4a5568',
+            }}
+          >
+            Sign In
           </Text>
         </TouchableOpacity>
       </View>
@@ -164,7 +181,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   textInput: {
-    ...(Platform.OS === 'ios' || 'web'
+    ...(Platform.OS === 'ios'
       ? {
           shadowColor: '#323643',
           shadowOffset: { width: 0, height: 2 },
@@ -174,14 +191,17 @@ const styles = StyleSheet.create({
       : {
           elevation: 1,
         }),
+    backgroundColor: 'white',
+    color: '#4a5568',
     padding: 10,
     color: '#4a5568',
     textAlign: 'left',
     fontSize: 13,
     marginTop: 15,
+    width: '100%',
   },
   btnNext: {
-    ...(Platform.OS === 'ios' || 'web'
+    ...(Platform.OS === 'ios'
       ? {
           shadowColor: '#323643',
           shadowOffset: { width: 0, height: 2 },
@@ -195,5 +215,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 15,
     backgroundColor: '#0AC4BA',
+    width: '100%',
   },
 });
