@@ -37,10 +37,15 @@ export default function Register(props) {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        dataTransport.call(user, navigation, 'Configuration', {
-          country,
-          displayName: username,
-        });
+        user
+          .updateProfile({
+            displayName: username,
+          })
+          .then(() => {
+            dataTransport.call(user, navigation, 'Configuration', {
+              country,
+            });
+          });
       });
   }
 
