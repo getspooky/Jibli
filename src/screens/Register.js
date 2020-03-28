@@ -15,6 +15,7 @@ import countries from '../data/countries';
 export default function Register(props) {
   /* @state  */
   const [data, setData] = useState({
+    username: null,
     email: null,
     password: null,
     country: null,
@@ -31,12 +32,15 @@ export default function Register(props) {
    * @returns {void}
    */
   function HandleSignIn() {
-    const { email, password, country } = data;
+    const { username, email, password, country } = data;
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        dataTransport.call('Configuration', user, { country });
+        dataTransport.call(user, navigation, 'Configuration', {
+          country,
+          displayName: username,
+        });
       });
   }
 
@@ -76,6 +80,13 @@ export default function Register(props) {
         <TextInput
           style={styles.textInput}
           onChange={HandleInputChange}
+          name={'username'}
+          type={'username'}
+          placeholder={'Username'}
+        />
+        <TextInput
+          style={styles.textInput}
+          onChange={HandleInputChange}
           name={'email'}
           type={'email'}
           placeholder={'Email Address'}
@@ -86,6 +97,7 @@ export default function Register(props) {
           name={'password'}
           type={'password'}
           placeholder={'Password'}
+          secureTextEntry={true}
         />
         <Picker
           style={[
@@ -112,6 +124,16 @@ export default function Register(props) {
           </Text>
         </TouchableOpacity>
       </View>
+      <Text
+        style={{
+          fontSize: 11,
+          color: '#718096',
+          marginTop: 15,
+          textAlign: 'center',
+        }}
+      >
+        Terms Of Service
+      </Text>
     </View>
   );
 }
