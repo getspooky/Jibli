@@ -32,6 +32,7 @@ const { width } = Dimensions.get('screen');
  * @returns {Component}
  */
 export default function Delivery(props) {
+  /* @var  */
   const { item } = props;
   return (
     <TouchableWithoutFeedback key={`parking-${item._id}`}>
