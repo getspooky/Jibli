@@ -92,6 +92,7 @@ export default function Login(props) {
           onChangeText={HandleInputChange('email')}
           name={'email'}
           type={'email'}
+          placeholderTextColor={'#718096'}
           placeholder={'Email Address'}
         />
         <TextInput
@@ -99,6 +100,7 @@ export default function Login(props) {
           onChangeText={HandleInputChange('password')}
           name={'password'}
           type={'password'}
+          placeholderTextColor={'#718096'}
           placeholder={'Password'}
           secureTextEntry={true}
         />
