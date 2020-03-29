@@ -30,7 +30,6 @@ export const style = StyleSheet.create({
     backgroundColor: 'white',
     color: '#4a5568',
     padding: 10,
-    color: '#4a5568',
     textAlign: 'left',
     fontSize: 13,
     marginTop: 15,
