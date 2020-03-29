@@ -78,7 +78,7 @@ export default function Delivery(props) {
 
 const styles = StyleSheet.create({
   delivery: {
-    ...(Platform.OS === 'ios' || 'web'
+    ...(Platform.OS === 'ios'
       ? {
           shadowColor: '#323643',
           shadowOffset: { width: 0, height: 2 },
@@ -86,11 +86,11 @@ const styles = StyleSheet.create({
           shadowRadius: 7,
         }
       : {
-          elevation: 1,
+          elevation: 0.8,
         }),
     flexDirection: 'row',
     backgroundColor: 'white',
-    borderRadius: 6,
+    borderRadius: 0,
     padding: 12,
     marginHorizontal: 12 * 2,
     width: width - 24 * 2,
