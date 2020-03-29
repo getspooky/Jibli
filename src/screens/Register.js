@@ -98,28 +98,31 @@ export default function Register(props) {
       >
         <TextInput
           style={customStyle.textInput}
-          onChange={HandleInputChange('username')}
+          onChangeText={HandleInputChange('username')}
           name={'username'}
           type={'username'}
+          placeholderTextColor={'#718096'}
           placeholder={'Username'}
         />
         <TextInput
           style={customStyle.textInput}
-          onChange={HandleInputChange('email')}
+          onChangeText={HandleInputChange('email')}
           name={'email'}
           type={'email'}
+          placeholderTextColor={'#718096'}
           placeholder={'Email Address'}
         />
         <TextInput
-          style={[customStyle.textInput]}
-          onChange={HandleInputChange('password')}
+          style={customStyle.textInput}
+          onChangeText={HandleInputChange('password')}
           name={'password'}
           type={'password'}
           placeholder={'Password'}
+          placeholderTextColor={'#718096'}
           secureTextEntry={true}
         />
         <Picker
-          style={[customStyle.textInput]}
+          style={customStyle.textInput}
           selectedValue={data.country}
           onValueChange={(itemValue, itemIndex) =>
             setData({ ...data, country: itemValue })
