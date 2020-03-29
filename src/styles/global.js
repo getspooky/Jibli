@@ -15,7 +15,7 @@ import { StyleSheet, Platform } from 'react-native';
  * @var {style}
  * @types {Object}
  */
-export const style = StyleSheet({
+export const style = StyleSheet.create({
   textInput: {
     ...(Platform.OS === 'ios'
       ? {
@@ -34,6 +34,7 @@ export const style = StyleSheet({
     textAlign: 'left',
     fontSize: 13,
     marginTop: 15,
+    border: 0,
     width: '100%',
   },
   btn: {
