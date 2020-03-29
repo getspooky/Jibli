@@ -25,7 +25,7 @@ export const style = StyleSheet.create({
           shadowRadius: 7,
         }
       : {
-          elevation: 1,
+          elevation: 2,
         }),
     backgroundColor: 'white',
     color: '#4a5568',
@@ -34,7 +34,7 @@ export const style = StyleSheet.create({
     textAlign: 'left',
     fontSize: 13,
     marginTop: 15,
-    border: 0,
+    borderWidth: 0,
     width: '100%',
   },
   btn: {
