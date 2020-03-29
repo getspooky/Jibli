@@ -15,7 +15,6 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  Platform,
   Dimensions,
 } from 'react-native';
 import { style as customStyle } from '../styles/global';
