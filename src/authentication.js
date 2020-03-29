@@ -10,6 +10,7 @@
 import firebase from 'firebase';
 
 /**
+ * @deprecated
  * @exports
  * @desc User Authentication using [facebook,twitter].
  * @author {Yasser Ameur El Idrissi}
