@@ -8,6 +8,7 @@
  */
 
 /**
+ * @export
  * @type {Array<Object>}
  */
 export default [
