@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Translate } from '../config/i18n';
 import Database from '../config/firebaseInit';
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
-  Image,
   TouchableOpacity,
   Platform,
+  Dimensions,
 } from 'react-native';
+const { width } = Dimensions.get('window');
 
 export default function Role(props) {
   /* @state  */
@@ -59,7 +59,7 @@ export default function Role(props) {
     if (phone !== null) {
       Database.collection('information')
         .add({
-          phone,
+          phone: phone.number,
           _idUser: navigation.getParam('_id'),
         })
         .then(docRef => {
@@ -75,11 +75,16 @@ export default function Role(props) {
    * @desc Handle input change.
    * @function
    * @name {HandleInputChange}
-   * @param {Object} event
-   * @returns {void}
+   * @param {String} name
+   * @returns {Function}
    */
-  function HandleInputChange(event) {
-    setPhone({ number: event.target.value });
+  function HandleInputChange(name) {
+    return value => {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    };
   }
 
   return (
@@ -96,11 +101,13 @@ export default function Role(props) {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'stretch',
+          width: width * 0.6,
         }}
       >
         <TextInput
           style={styles.textInput}
-          onChange={HandleInputChange}
+          onChangeText={HandleInputChange('number')}
+          type={'tel'}
           placeholder={'(+212) 662134122'}
         />
         <TouchableOpacity
@@ -154,10 +161,12 @@ const styles = StyleSheet.create({
       : {
           elevation: 1,
         }),
+    backgroundColor: 'white',
     padding: 10,
     textAlign: 'center',
     fontSize: 13,
     marginTop: 15,
+    width: '100%',
   },
   btnNext: {
     ...(Platform.OS === 'ios' || 'web'
