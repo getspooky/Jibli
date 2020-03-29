@@ -9,20 +9,36 @@
 
 import React, { useEffect } from 'react';
 import firebase from 'firebase';
-import { Auth as HandleSignIn } from '../authentication';
 import {
   StyleSheet,
   Dimensions,
   Text,
   View,
   Image,
-  Linking,
   TouchableOpacity,
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { GitHubUrl } from '../data/links';
 const { width, height } = Dimensions.get('window');
+
+/**
+ * @export
+ * @desc Passing Data Between Screens.
+ * @function
+ * @name {dataTransport}
+ * @param {Object} navigator
+ * @param {String} screen
+ * @param {Object} options
+ * @returns {void}
+ */
+export function dataTransport(navigator, screen, options = {}) {
+  navigator.navigate(screen, {
+    _id: this.uid,
+    username: this.displayName,
+    email: this.email,
+    phoneNumber: this.phoneNumber,
+  });
+}
 
 export default function Welcome(props) {
   /* @var */
@@ -32,23 +48,8 @@ export default function Welcome(props) {
    * @desc Runs after the component output has been rendered to the DOM.
    */
   useEffect(function() {
-    isAuthenticated();
+    //isAuthenticated();
   }, []);
-
-  /**
-   * @internal
-   * @desc Passing Data Between Screens.
-   * @function
-   * @name {dataTransport}
-   * @returns {void}
-   */
-  function dataTransport() {
-    navigation.navigate('Configuration', {
-      _id: this.uid,
-      name: this.displayName,
-      email: this.email,
-    });
-  }
 
   /**
    * @internal
@@ -61,17 +62,29 @@ export default function Welcome(props) {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user)
         // User is signed in.
-        dataTransport.call(user);
+        dataTransport.call(user, navigation, 'Role', {
+          username: user.displayName,
+        });
     });
+  }
+
+  /**
+   * @internal
+   * @desc Look for volunteer deliveryman
+   * @function
+   * @name {searchVolunteer}
+   * @returns {void}
+   */
+  function searchVolunteer() {
+    navigation.navigate('Tracking', null);
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Text
-        <Text style={{ color: '#0AC4BA' }}> Text.</Text>
+        Become a<Text style={{ color: '#0AC4BA' }}> Volunteer.</Text>
       </Text>
-      <Text style={styles.description}>Enjoy the experience.</Text>
+      <Text style={styles.description}>Help at Your Door 💓.</Text>
       <Image
         style={styles.stretch}
         resizeMode="contain"
@@ -79,23 +92,17 @@ export default function Welcome(props) {
       />
       <TouchableOpacity
         style={[styles.CustomButton]}
-        onPress={() => navigator.navigate('Login')}
+        onPress={() => navigation.navigate('Register')}
       >
-        <Text style={{ fontWeight: '500', fontSize: 15, color: '#3B5998' }}>
-          <Icon name="sign-in" size={15} color="#3B5998" /> Getting Started
+        <Text style={{ fontWeight: '500', fontSize: 16, color: '#3B5998' }}>
+          <Icon name="sign-in" size={16} color="#3B5998" /> Getting Started
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.CustomButton]}
-        onPress={() => Linking.openURL(GitHubUrl || '')}
-      >
-        <Text style={{ fontWeight: '500', fontSize: 15, color: '#1a202c' }}>
-          <Icon name="github" size={15} color="#1a202c" /> Contribute on GitHub
+      <TouchableOpacity style={[styles.CustomButton]} onPress={searchVolunteer}>
+        <Text style={{ fontWeight: '500', fontSize: 16, color: '#55ACEE' }}>
+          <Icon name="user" size={16} color="#55ACEE" /> Find volunteer
         </Text>
       </TouchableOpacity>
-      <Text style={{ fontSize: 10, color: '#718096', marginTop: 9 }}>
-        Terms Of Service
-      </Text>
     </View>
   );
 }
@@ -132,9 +139,9 @@ const styles = StyleSheet.create({
           shadowRadius: 7,
         }
       : {
-          elevation: 1,
+          elevation: 0.7,
         }),
-    borderRadius: 1,
+    borderRadius: 0,
     justifyContent: 'center',
     marginVertical: 10,
     width: '60%',
