@@ -93,7 +93,7 @@ export default function Register(props) {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          width: width * 0.6,
+          width: width * 0.7,
         }}
       >
         <TextInput
@@ -120,7 +120,7 @@ export default function Register(props) {
         />
         <Picker
           style={[customStyle.textInput]}
-          selectedValue={'Morocco'}
+          selectedValue={data.country}
           onValueChange={(itemValue, itemIndex) =>
             setData({ ...data, country: itemValue })
           }
@@ -143,7 +143,7 @@ export default function Register(props) {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.customStyle, { marginTop: 20 }]}
+          style={[customStyle.btn, { marginTop: 20 }]}
           onPress={() => navigation.navigate('Login')}
         >
           <Text
