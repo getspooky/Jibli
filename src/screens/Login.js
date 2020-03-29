@@ -18,6 +18,7 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
+import { style as customStyle } from '../styles/global';
 import { dataTransport } from './Welcome';
 const { width } = Dimensions.get('window');
 
@@ -84,25 +85,28 @@ export default function Login(props) {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'stretch',
-          width: width * 0.7,
+          width: width * 0.6,
         }}
       >
         <TextInput
-          style={styles.textInput}
+          style={customStyle.textInput}
           onChangeText={HandleInputChange('email')}
           name={'email'}
           type={'email'}
           placeholder={'Email Address'}
         />
         <TextInput
-          style={styles.textInput}
+          style={customStyle.textInput}
           onChangeText={HandleInputChange('password')}
           name={'password'}
           type={'password'}
           placeholder={'Password'}
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.btnNext} onPress={HandleSignIn}>
+        <TouchableOpacity
+          style={[customStyle.btn, styles.btnNext]}
+          onPress={HandleSignIn}
+        >
           <Text
             style={{
               textAlign: 'center',
@@ -139,43 +143,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     textAlign: 'center',
   },
-  textInput: {
-    ...(Platform.OS === 'ios'
-      ? {
-          shadowColor: '#323643',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 7,
-        }
-      : {
-          elevation: 1,
-        }),
-    backgroundColor: 'white',
-    color: '#4a5568',
-    padding: 10,
-    color: '#4a5568',
-    textAlign: 'left',
-    fontSize: 13,
-    marginTop: 15,
-    width: '100%',
-  },
   btnNext: {
-    ...(Platform.OS === 'ios' || 'web'
-      ? {
-          shadowColor: '#323643',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 7,
-        }
-      : {
-          elevation: 1,
-        }),
-    backgroundColor: 'white',
-    color: '#4a5568',
-    borderRadius: 6,
-    padding: 10,
-    marginTop: 15,
     backgroundColor: '#0AC4BA',
-    width: '100%',
   },
 });
