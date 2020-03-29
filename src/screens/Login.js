@@ -84,7 +84,7 @@ export default function Login(props) {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'stretch',
-          width: width * 0.6,
+          width: width * 0.7,
         }}
       >
         <TextInput
