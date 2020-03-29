@@ -1,4 +1,6 @@
-### ✌️ We are so excited to have you. With your help, we can build out Jibli to be more stable and better serve our community.
+# Welcome to Jibli App 😷
+
+✌️ We are so excited to have you. With your help, we can build out Jibli to be more stable and better serve our community.
 
 <br>
 <p align="center">
