@@ -38,7 +38,7 @@ export const style = StyleSheet.create({
     width: '100%',
   },
   btn: {
-    ...(Platform.OS === 'ios' || 'web'
+    ...(Platform.OS === 'ios'
       ? {
           shadowColor: '#323643',
           shadowOffset: { width: 0, height: 2 },
@@ -48,6 +48,7 @@ export const style = StyleSheet.create({
       : {
           elevation: 1,
         }),
+    backgroundColor: 'white',
     borderRadius: 6,
     padding: 10,
     marginTop: 15,
