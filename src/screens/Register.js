@@ -1,3 +1,12 @@
+/*
+ * This file is part of the Jibli project.
+ *
+ * (c) Yasser Ameur El Idrissi <getspookydev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import React, { useState } from 'react';
 import firebase from 'firebase';
 import {
@@ -8,9 +17,9 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  Platform,
 } from 'react-native';
 import { dataTransport } from './Welcome';
+import { style as customStyle } from '../styles/global';
 import countries from '../data/countries';
 const { width } = Dimensions.get('window');
 
@@ -84,25 +93,25 @@ export default function Register(props) {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          width: width * 0.7,
+          width: width * 0.6,
         }}
       >
         <TextInput
-          style={styles.textInput}
+          style={customStyle.textInput}
           onChange={HandleInputChange('username')}
           name={'username'}
           type={'username'}
           placeholder={'Username'}
         />
         <TextInput
-          style={styles.textInput}
+          style={customStyle.textInput}
           onChange={HandleInputChange('email')}
           name={'email'}
           type={'email'}
           placeholder={'Email Address'}
         />
         <TextInput
-          style={[styles.textInput]}
+          style={[customStyle.textInput]}
           onChange={HandleInputChange('password')}
           name={'password'}
           type={'password'}
@@ -110,7 +119,7 @@ export default function Register(props) {
           secureTextEntry={true}
         />
         <Picker
-          style={[styles.textInput]}
+          style={[customStyle.textInput]}
           selectedValue={'Morocco'}
           onValueChange={(itemValue, itemIndex) =>
             setData({ ...data, country: itemValue })
@@ -118,7 +127,10 @@ export default function Register(props) {
         >
           {listOfCountries}
         </Picker>
-        <TouchableOpacity style={styles.btnNext} onPress={HandleSignUp}>
+        <TouchableOpacity
+          style={[customStyle.btn, { backgroundColor: '#0AC4BA' }]}
+          onPress={HandleSignUp}
+        >
           <Text
             style={{
               textAlign: 'center',
@@ -131,7 +143,7 @@ export default function Register(props) {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.btnNext, { backgroundColor: '#fff' }]}
+          style={[styles.customStyle, { marginTop: 20 }]}
           onPress={() => navigation.navigate('Login')}
         >
           <Text
@@ -179,42 +191,5 @@ const styles = StyleSheet.create({
     padding: 8,
     marginTop: 6,
     textAlign: 'center',
-  },
-  textInput: {
-    ...(Platform.OS === 'ios'
-      ? {
-          shadowColor: '#323643',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 7,
-        }
-      : {
-          elevation: 1,
-        }),
-    backgroundColor: 'white',
-    color: '#4a5568',
-    padding: 10,
-    color: '#4a5568',
-    textAlign: 'left',
-    fontSize: 13,
-    marginTop: 15,
-    width: '100%',
-  },
-  btnNext: {
-    ...(Platform.OS === 'ios'
-      ? {
-          shadowColor: '#323643',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 7,
-        }
-      : {
-          elevation: 1,
-        }),
-    borderRadius: 6,
-    padding: 10,
-    marginTop: 15,
-    backgroundColor: '#0AC4BA',
-    width: '100%',
   },
 });
