@@ -48,7 +48,7 @@ export default function Welcome(props) {
    * @desc Runs after the component output has been rendered to the DOM.
    */
   useEffect(function() {
-    //isAuthenticated();
+    isAuthenticated();
   }, []);
 
   /**
@@ -94,13 +94,13 @@ export default function Welcome(props) {
         style={[styles.CustomButton]}
         onPress={() => navigation.navigate('Register')}
       >
-        <Text style={{ fontWeight: '500', fontSize: 16, color: '#3B5998' }}>
-          <Icon name="sign-in" size={16} color="#3B5998" /> Getting Started
+        <Text style={{ fontWeight: '500', fontSize: 16, color: '#55ACEE' }}>
+          <Icon name="sign-in" size={16} color="#55ACEE" /> Getting Started
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={[styles.CustomButton]} onPress={searchVolunteer}>
-        <Text style={{ fontWeight: '500', fontSize: 16, color: '#55ACEE' }}>
-          <Icon name="user" size={16} color="#55ACEE" /> Find volunteer
+        <Text style={{ fontWeight: '500', fontSize: 16, color: '#0AC4BA' }}>
+          <Icon name="search" size={16} color="#0AC4BA" /> Find volunteer
         </Text>
       </TouchableOpacity>
     </View>
@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
           shadowRadius: 7,
         }
       : {
-          elevation: 0.7,
+          elevation: 1,
         }),
-    borderRadius: 0,
+    borderRadius: 3,
     justifyContent: 'center',
     marginVertical: 10,
     width: '60%',
