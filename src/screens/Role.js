@@ -1,5 +1,13 @@
+/*
+ * This file is part of the Jibli project.
+ *
+ * (c) Yasser Ameur El Idrissi <getspookydev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import React from 'react';
-import { Translate } from '../config/i18n';
 import {
   StyleSheet,
   Text,
@@ -29,8 +37,10 @@ export default function Role(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Hi
-        <Text style={{ color: '#0AC4BA' }}>{navigation.getParam('name')}.</Text>
+        🖖Hi,
+        <Text style={{ color: '#0AC4BA' }}>
+          {' ' + navigation.getParam('username')}.
+        </Text>
       </Text>
       <Text style={styles.description}>Enjoy The Experience</Text>
       <View
