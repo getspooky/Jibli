@@ -1,3 +1,12 @@
+/*
+ * This file is part of the Jibli project.
+ *
+ * (c) Yasser Ameur El Idrissi <getspookydev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import React, { useState, useEffect } from 'react';
 import Database from '../config/firebaseInit';
 import {
@@ -6,9 +15,9 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  Platform,
   Dimensions,
 } from 'react-native';
+import { styles as customStyle } from '../styles/global';
 const { width } = Dimensions.get('window');
 
 export default function Role(props) {
@@ -105,13 +114,13 @@ export default function Role(props) {
         }}
       >
         <TextInput
-          style={styles.textInput}
+          style={customStyle.textInput}
           onChangeText={HandleInputChange('number')}
           type={'tel'}
           placeholder={'(+212) 662134122'}
         />
         <TouchableOpacity
-          style={styles.btnNext}
+          style={[customStyle.btn, { backgroundColor: '#0AC4BA' }]}
           onPress={() => saveConfiguration()}
         >
           <Text
@@ -149,39 +158,5 @@ const styles = StyleSheet.create({
     padding: 8,
     marginTop: 6,
     textAlign: 'center',
-  },
-  textInput: {
-    ...(Platform.OS === 'ios' || 'web'
-      ? {
-          shadowColor: '#323643',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 7,
-        }
-      : {
-          elevation: 1,
-        }),
-    backgroundColor: 'white',
-    padding: 10,
-    textAlign: 'center',
-    fontSize: 13,
-    marginTop: 15,
-    width: '100%',
-  },
-  btnNext: {
-    ...(Platform.OS === 'ios' || 'web'
-      ? {
-          shadowColor: '#323643',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 7,
-        }
-      : {
-          elevation: 1,
-        }),
-    borderRadius: 6,
-    padding: 10,
-    marginTop: 15,
-    backgroundColor: '#0AC4BA',
   },
 });
