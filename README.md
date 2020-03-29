@@ -1,5 +1,6 @@
-## ✌️ Welcome to the Jibli. We are so excited to have you. With your help, we can build out Jibli to be more stable and better serve our community.
+### ✌️ We are so excited to have you. With your help, we can build out Jibli to be more stable and better serve our community.
 
+<br>
 <p align="center">
     <img src="src/assets/resize/logo-256.png" alt="Jibli" style="margin-bottom:20px;margin-top:20px" />
     </br>
@@ -18,6 +19,7 @@
 
 - [What is Jibli ?](#What-is-Jibli)
 - [Table of Contents](#Table-of-Contents)
+- [Quick Overview](#Quick-Overview)
 - [Contributing](#Contributing)
 - [Requirements](#Requirements)
 - [Platform Support](#Platform-Support)
@@ -33,6 +35,33 @@
 For some reason, despite lockdowns, shutdowns, and a fair few nervous breakdowns, there are still people not taking the coronavirus pandemic seriously. Coronavirus spreads easily and asymptomatically, and the only way to slow it down so that intensive care units don't get flooded with more severe cases than they can care for is for everyone to stay in their damn house as much as possible.
 For this, the application was designed in order to provide free delivery platform 😷😷😷
 
+## Quick Overview
+
+Installation is done using the npm install command:
+
+### Installing Expo CLI
+
+We recommend installing Expo CLI globally
+
+<pre>
+ npm install -g expo-cli
+</pre>
+
+### Clonning the repo from github
+
+<pre>
+ git clone https://github.com/getspooky/Jibli.git 
+</pre>
+
+### Openning the application in Android Or IOS Operation System
+
+<pre>
+// for android
+npm run android
+// for ios 
+npm run ios
+</pre>
+
 ## Contributing
 
 We encourage you to contribute to Jibli! Please check out the [Contributing](/Contributing.md) to Jibli guide for guidelines about how to proceed.
@@ -43,6 +72,7 @@ Jibli has a few requirements you should be aware of before installing:
 
 - Node.js >= 8.0.0
 - npm >= 6.10.3
+- git(cvs)
 
 ## Platform Support
 
