@@ -18,9 +18,9 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Welcome from '../screens/Welcome';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
+import Configuration from '../screens/Configuration';
 import Role from '../screens/Role';
 import Tracking from '../screens/Tracking';
-import Configuration from '../screens/Configuration';
 
 /**
  * @internal
@@ -31,11 +31,11 @@ import Configuration from '../screens/Configuration';
 const screens = createStackNavigator(
   {
     Welcome,
-    Register,
-    Login,
     Configuration,
     Role,
     Tracking,
+    Register,
+    Login,
   },
   {
     defaultNavigationOptions: {
