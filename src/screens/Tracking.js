@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Delivery from '../components/Delivery';
+import { StyleSheet, Dimensions, View, FlatList } from 'react-native';
+import firebase from 'firebase';
 import Database from '../config/firebaseInit';
-const { height, width } = Dimensions.get('screen');
-import data from '../data/fake.js';
+import MapView, { Marker } from 'react-native-maps';
+import Delivery from '../components/Delivery';
 import mapStyle from '../data/mapStyle.js';
+
+const { height, width } = Dimensions.get('screen');
 
 export default function Tracking(props) {
   /* @state */
   const [location, setLocation] = useState(null);
+  const [info, setInfo] = useState([]);
 
   /* @var */
+  const user = firebase.auth().currentUser;
   const { navigation } = props;
 
   /**
    * @desc Runs after the component output has been rendered to the DOM.
    */
   useEffect(function() {
+    if (user) {
+      if (navigation.getParam('strategy') == 'delivery') setDBLocation();
+    }
+    initUserGeoLocal();
     getAllLocations();
   }, []);
 
@@ -42,7 +41,7 @@ export default function Tracking(props) {
         if (querySnapshot)
           querySnapshot.forEach(function(doc) {
             // set current geolocation of the user.
-            setLocation([doc.data()]);
+            setInfo([doc.data()]);
           });
       });
   }
@@ -51,10 +50,9 @@ export default function Tracking(props) {
    * @desc Update Information collection
    * @function
    * @name {setDBLocation}
-   * @param {Object} location
    * @returns {void}
    */
-  function setDBLocation(location) {
+  function setDBLocation() {
     Database.collection('information')
       .where('_idUser', '==', navigation.getParam('_id'))
       .limit(1)
@@ -67,7 +65,6 @@ export default function Tracking(props) {
               location,
             });
           });
-        else new TypeError('Account does not exists');
       });
   }
 
@@ -79,7 +76,7 @@ export default function Tracking(props) {
    */
   function initUserGeoLocal() {
     navigator.geolocation.getCurrentPosition(position => {
-      setDBLocation({
+      setLocation({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
@@ -88,24 +85,16 @@ export default function Tracking(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.localisation} onPress={initUserGeoLocal}>
-        <Icon name="map-marker" size={20} color="#4a5568" />
-      </TouchableOpacity>
-
-      {/*<MapView
-        region={currentPosition}
+      <MapView
+        region={location}
+        minZoomLevel={3}
         style={styles.map}
         customMapStyle={mapStyle}
       >
-        {this.state.markers.map(marker => (
-          <Marker
-            coordinate={marker.latlng}
-            title={marker.title}
-            description={marker.description}
-          />
+        {info.map(marker => (
+          <Marker coordinate={marker.location} />
         ))}
       </MapView>
-        */}
       <FlatList
         horizontal
         pagingEnabled
@@ -114,7 +103,7 @@ export default function Tracking(props) {
         scrollEventThrottle={16}
         snapToAlignment="center"
         style={styles.deliveryList}
-        data={data.deliveryList}
+        data={info}
         keyExtractor={(item, index) => `${item.id}`}
         renderItem={({ item }) => <Delivery item={item} />}
       />
@@ -140,26 +129,5 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     paddingBottom: 12 * 2,
-  },
-  localisation: {
-    ...(Platform.OS === 'ios' || 'web'
-      ? {
-          shadowColor: '#323643',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 7,
-        }
-      : {
-          elevation: 1,
-        }),
-    borderRadius: 40,
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    justifyContent: 'center',
-    width: 40,
-    height: 40,
-    padding: 10,
-    alignItems: 'center',
   },
 });
