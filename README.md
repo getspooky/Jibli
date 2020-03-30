@@ -4,13 +4,13 @@
 
 <br>
 <p align="center">
-    <img src="src/assets/resize/logo-256.png" alt="Jibli" style="margin-bottom:20px;margin-top:20px" />
+    <img src="src/assets/resize/logo-256.png" alt="Jibli" style="margin-bottom:40px;margin-top:20px" />
     </br>
     <a href="#"><img alt="play store" src="https://img.shields.io/badge/play%20store-build-important"></a>
     <a href="#"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/getspooky/Jibli"></a>
     <img alt="PRs" src="https://img.shields.io/badge/PRs-Welcome-blue" />
-    <br />
      <img alt="lang" src="https://img.shields.io/badge/lang-javascript-yellow" />
+     <br>
       <img alt="status" src="https://img.shields.io/badge/status-Development%20Mode-9cf" />
 </p>
 <div align="center">
@@ -21,6 +21,7 @@
 
 - [What is Jibli ?](#What-is-Jibli)
 - [Table of Contents](#Table-of-Contents)
+- [Screenshot](#Screenshot)
 - [Quick Overview](#Quick-Overview)
 - [Contributing](#Contributing)
 - [Requirements](#Requirements)
@@ -36,6 +37,15 @@
 
 For some reason, despite lockdowns, shutdowns, and a fair few nervous breakdowns, there are still people not taking the coronavirus pandemic seriously. Coronavirus spreads easily and asymptomatically, and the only way to slow it down so that intensive care units don't get flooded with more severe cases than they can care for is for everyone to stay in their damn house as much as possible.
 For this, the application was designed in order to provide free delivery platform 😷😷😷
+
+# Screenshot
+
+<p align="center">
+   <img src="src/assets/screenshot/welcome_20200330-120048_Expo.jpg" alt="welcome" />
+   <img src="src/assets/screenshot/login_20200330-121800_Expo.jgp" alt="login" />
+   <img src="src/assets/screenshot/Configuration_20200330-124517_Expo.jpg" alt="configuration" />
+   <img src="src/assets/screenshot/Tracking_20200330-122305_Expo.jpg" alt="configuration" />
+</p>
 
 ## Quick Overview
 
