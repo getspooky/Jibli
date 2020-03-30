@@ -33,9 +33,9 @@ const screens = createStackNavigator(
     Welcome,
     Register,
     Login,
+    Configuration,
     Role,
     Tracking,
-    Configuration,
   },
   {
     defaultNavigationOptions: {
