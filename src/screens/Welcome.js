@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
       : {
           elevation: 1,
         }),
-    borderRadius: 3,
+    borderRadius: 0,
     justifyContent: 'center',
     marginVertical: 10,
     width: '60%',
