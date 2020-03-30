@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   TouchableWithoutFeedback,
@@ -41,7 +41,7 @@ export default function Delivery(props) {
     <TouchableWithoutFeedback key={`parking-${item._id}`}>
       <View style={styles.delivery}>
         <View style={styles.details}>
-          <Text style={styles.tranportTitle}>{'Volunteer'}</Text>
+          <Text style={styles.Title}>{'Volunteer'}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ color: '#7D818A', fontSize: 12 }}>
               <Icon name="whatsapp" size={13} color="#7D818A" />
@@ -57,6 +57,9 @@ export default function Delivery(props) {
                 <Icon name="dollar" size={16 * 1.25} color="white" />
                 <Text style={styles.buyTotalPrice}>{'FREE'}</Text>
               </View>
+            </View>
+            <View style={styles.buyBtn}>
+              <Icon name="forward" size={18 * 1.75} color="#fff" />
             </View>
           </TouchableOpacity>
         </View>
@@ -113,8 +116,8 @@ const styles = StyleSheet.create({
     marginLeft: 12 / 2,
     justifyContent: 'space-evenly',
   },
-  tranportTitle: {
-    fontSize: 16,
+  Title: {
+    fontSize: 22,
     color: '#718096',
     textTransform: 'capitalize',
     fontWeight: '500',
