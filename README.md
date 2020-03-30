@@ -41,10 +41,10 @@ For this, the application was designed in order to provide free delivery platfor
 # Screenshot
 
 <p align="center">
-   <img src="src/assets/screenshot/welcome_20200330-120048_Expo.jpg" alt="welcome" />
-   <img src="src/assets/screenshot/login_20200330-121800_Expo.jgp" alt="login" />
-   <img src="src/assets/screenshot/Configuration_20200330-124517_Expo.jpg" alt="configuration" />
-   <img src="src/assets/screenshot/Tracking_20200330-122305_Expo.jpg" alt="configuration" />
+   <img src="src/assets/screenshot/welcome_20200330-120048_Expo.jpg" alt="welcome" style="margin-right:10px;"  width="250" />
+   <img src="src/assets/screenshot/login_20200330-121800_Expo.jpg" alt="login" width="250" style="margin-right:10px;" />
+   <img src="src/assets/screenshot/Configuration_20200330-124517_Expo.jpg" alt="configuration" width="250" style="margin-right:10px;"  />
+   <img src="src/assets/screenshot/Tracking_20200330-122305_Expo.jpg" alt="configuration" width="250" style="margin-right:10px;"  />
 </p>
 
 ## Quick Overview
