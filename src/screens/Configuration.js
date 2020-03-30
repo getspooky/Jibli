@@ -17,7 +17,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { styles as customStyle } from '../styles/global';
+import { style as customStyle } from '../styles/global';
 const { width } = Dimensions.get('window');
 
 export default function Role(props) {
@@ -89,8 +89,8 @@ export default function Role(props) {
    */
   function HandleInputChange(name) {
     return value => {
-      setData({
-        ...data,
+      setPhone({
+        ...phone,
         [name]: value,
       });
     };
@@ -117,6 +117,7 @@ export default function Role(props) {
           style={customStyle.textInput}
           onChangeText={HandleInputChange('number')}
           type={'tel'}
+          placeholderTextColor={'#718096'}
           placeholder={'(+212) 662134122'}
         />
         <TouchableOpacity
