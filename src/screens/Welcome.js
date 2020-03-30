@@ -37,6 +37,7 @@ export function dataTransport(navigator, screen, options = {}) {
     username: this.displayName,
     email: this.email,
     phoneNumber: this.phoneNumber,
+    ...options,
   });
 }
 
@@ -48,7 +49,7 @@ export default function Welcome(props) {
    * @desc Runs after the component output has been rendered to the DOM.
    */
   useEffect(function() {
-    //isAuthenticated();
+    isAuthenticated();
   }, []);
 
   /**
