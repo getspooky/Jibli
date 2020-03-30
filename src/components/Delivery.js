@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   TouchableWithoutFeedback,
@@ -34,33 +34,22 @@ const { width } = Dimensions.get('screen');
 export default function Delivery(props) {
   /* @var  */
   const { item } = props;
+
+  useEffect(function() {});
+
   return (
     <TouchableWithoutFeedback key={`parking-${item._id}`}>
       <View style={styles.delivery}>
         <View style={styles.details}>
-          <Text style={styles.tranportTitle}>{item.transport}</Text>
+          <Text style={styles.tranportTitle}>{'Volunteer'}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ color: '#7D818A', fontSize: 12 }}>
               <Icon name="whatsapp" size={13} color="#7D818A" />
-              {' ' + item.tel}
+              {' ' + item.phone}
             </Text>
           </View>
         </View>
         <View style={styles.deliveryContainer}>
-          <View style={styles.deliveryInfo}>
-            <View style={styles.deliveryIcon}>
-              <Icon name="car" size={16} color={'#4a5568'} />
-              <Text style={{ fontSize: 10, color: '#7D818A', marginTop: 4 }}>
-                {parseFloat(item.km).toFixed(1)}km
-              </Text>
-            </View>
-            <View style={styles.deliveryIcon}>
-              <Icon name="link" size={16} color={'#4a5568'} />
-              <Text style={{ fontSize: 10, color: '#7D818A', marginTop: 3 }}>
-                {parseFloat(item.link / 1000).toFixed(1)}k
-              </Text>
-            </View>
-          </View>
           <TouchableOpacity style={styles.buy}>
             <View style={styles.buyTotal}>
               <Text style={{ color: 'white' }}>Price</Text>
