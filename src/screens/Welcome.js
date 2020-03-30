@@ -48,7 +48,7 @@ export default function Welcome(props) {
    * @desc Runs after the component output has been rendered to the DOM.
    */
   useEffect(function() {
-    isAuthenticated();
+    //isAuthenticated();
   }, []);
 
   /**
