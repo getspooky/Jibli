@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  Alert,
   View,
   TouchableOpacity,
   Dimensions,
@@ -51,7 +52,9 @@ export default function Role(props) {
           navigation.navigate('Role', {
             ...navigation.state.params,
           });
-        else new TypeError('Account does not exists');
+      })
+      .catch(({ message }) => {
+        Alert.alert('Oops', message);
       });
   }
 
@@ -64,8 +67,8 @@ export default function Role(props) {
    */
   function saveConfiguration() {
     if (!navigation.state.params.hasOwnProperty('_id'))
-      navigation.navigate('Weclome', null);
-    if (phone !== null) {
+      navigation.navigate('Weclome');
+    if (phone.number !== null) {
       Database.collection('information')
         .add({
           phone: phone.number,
@@ -75,7 +78,12 @@ export default function Role(props) {
           navigation.navigate('Role', {
             ...navigation.state.params,
           });
+        })
+        .catch(({ message }) => {
+          Alert.alert('Oops', message);
         });
+    } else {
+      Alert.alert('Oops', 'Phone number is required');
     }
   }
 
@@ -118,7 +126,7 @@ export default function Role(props) {
           onChangeText={HandleInputChange('number')}
           type={'tel'}
           placeholderTextColor={'#718096'}
-          placeholder={'(+212) 662134122'}
+          placeholder={navigation.getParam('code') || '+212'}
         />
         <TouchableOpacity
           style={[customStyle.btn, { backgroundColor: '#0AC4BA' }]}
