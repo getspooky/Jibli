@@ -12,6 +12,7 @@ import firebase from 'firebase';
 import {
   StyleSheet,
   Text,
+  Alert,
   TextInput,
   View,
   TouchableOpacity,
@@ -47,12 +48,19 @@ export default function Login(props) {
    */
   function HandleSignIn() {
     const { email, password } = data;
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(({ user }) => {
-        dataTransport.call(user, navigation, 'Role');
-      });
+    if (email === null || password === null) {
+      Alert.alert('Oops', 'Email and Password required');
+    } else {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(({ user }) => {
+          dataTransport.call(user, navigation, 'Role');
+        })
+        .catch(({ message }) => {
+          Alert.alert('Oops', message);
+        });
+    }
   }
 
   /**
