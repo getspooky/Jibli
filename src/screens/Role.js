@@ -37,7 +37,7 @@ export default function Role(props) {
    */
   function redirectTo(strategy) {
     if (navigation.state.params.hasOwnProperty('_id'))
-      navigation.navigate('Tracking', { strategy, ...navigation.state.params });
+      navigation.navigate('Tracking', { ...navigation.state.params, strategy });
     else navigation.navigate('Weclome', null);
   }
 
