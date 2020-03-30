@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Dimensions, View, FlatList } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import firebase from 'firebase';
 import Database from '../config/firebaseInit';
 import MapView, { Marker } from 'react-native-maps';
@@ -10,7 +18,7 @@ const { height, width } = Dimensions.get('screen');
 
 export default function Tracking(props) {
   /* @state */
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState({});
   const [info, setInfo] = useState([]);
 
   /* @var */
@@ -18,33 +26,26 @@ export default function Tracking(props) {
   const { navigation } = props;
 
   /**
+   * @useEffect
    * @desc Runs after the component output has been rendered to the DOM.
    */
-  useEffect(function() {
-    if (user) {
-      if (navigation.getParam('strategy') == 'delivery') setDBLocation();
-    }
-    initUserGeoLocal();
-    getAllLocations();
-  }, []);
 
-  /**
-   * @desc Get Users Locations
-   * @function
-   * @name {getAllLocations}
-   * @returns {void}
-   */
-  function getAllLocations() {
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(position => {
+      if (position) {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      }
+    });
     Database.collection('information')
       .get()
       .then(querySnapshot => {
-        if (querySnapshot)
-          querySnapshot.forEach(function(doc) {
-            // set current geolocation of the user.
-            setInfo([doc.data()]);
-          });
+        const data = querySnapshot.docs.map(doc => ({ ...doc.data() }));
+        setInfo(data);
       });
-  }
+  }, []);
 
   /**
    * @desc Update Information collection
@@ -53,47 +54,47 @@ export default function Tracking(props) {
    * @returns {void}
    */
   function setDBLocation() {
-    Database.collection('information')
-      .where('_idUser', '==', navigation.getParam('_id'))
-      .limit(1)
-      .get()
-      .then(querySnapshot => {
-        if (querySnapshot)
-          querySnapshot.forEach(function(doc) {
-            // set current geolocation of the user.
-            doc.ref.update({
-              location,
+    if (navigation.getParam('_id') !== undefined) {
+      Database.collection('information')
+        .where('_idUser', '==', navigation.getParam('_id'))
+        .limit(1)
+        .get()
+        .then(querySnapshot => {
+          if (querySnapshot)
+            querySnapshot.forEach(function(doc) {
+              // set current geolocation of the user.
+              doc.ref.update({
+                location: {
+                  latitude: parseFloat(location.latitude),
+                  longitude: parseFloat(location.longitude),
+                },
+              });
+              Alert.alert('Great', 'Thank you for your contribution ✌');
             });
-          });
-      });
-  }
-
-  /**
-   * @desc Set the User geographical location
-   * @function
-   * @name {initUserGeoLocal}
-   * @returns {void}
-   */
-  function initUserGeoLocal() {
-    navigator.geolocation.getCurrentPosition(position => {
-      setLocation({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-    });
+        });
+    }
   }
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={setDBLocation} style={styles.iconMaps}>
+        <Icon name="link" size={16 * 1.25} color="#2d3748" />
+      </TouchableOpacity>
       <MapView
         region={location}
         minZoomLevel={3}
         style={styles.map}
         customMapStyle={mapStyle}
       >
-        {info.map(marker => (
-          <Marker coordinate={marker.location} />
-        ))}
+        {info
+          .filter(
+            ele =>
+              ele.hasOwnProperty('location') &&
+              Object.keys(ele.location).length !== 0,
+          )
+          .map(marker => (
+            <Marker coordinate={marker.location} />
+          ))}
       </MapView>
       <FlatList
         horizontal
@@ -129,5 +130,17 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     paddingBottom: 12 * 2,
+  },
+  iconMaps: {
+    backgroundColor: '#fff',
+    width: 35,
+    height: 35,
+    borderRadius: 50,
+    position: 'absolute',
+    top: 40,
+    right: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999,
   },
 });
